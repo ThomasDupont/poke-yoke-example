@@ -24,7 +24,7 @@ const checkTotalAmount = (receipt: RentReceipt) => {
   return T.succeed(receipt)
 }
 
-const checkIncoherentLines = (receipt: RentReceipt) => {
+const checkIncoherentsLines = (receipt: RentReceipt) => {
   const forbiddenLines = receipt.lines.filter(
     line => !rentReceiptAutorizedTypes.includes(line.type)
   )
@@ -60,7 +60,7 @@ export const rentReceiptPokaYoke = (
         })
     }).pipe(
       T.flatMap(checkTotalAmount),
-      T.flatMap(checkIncoherentLines),
+      T.flatMap(checkIncoherentsLines),
       T.match({
         onSuccess: () => true,
         onFailure: ({ detailedError, message, action, id }) => {
